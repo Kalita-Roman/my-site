@@ -4,9 +4,13 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const port = 3000;
+const host = 'localhost';
+const entryPoiny = './index.js';
+const PROD_BUNDLE_DIR_NAME = 'bundle';
+const DEV_BUNDLE_DIR_NAME = 'dev';
 const IS_DEV = process.env.NODE_ENV === 'development';
 const IS_PROD = !IS_DEV;
-const dist = IS_DEV ? 'dev' : 'bundle';
+const dist = IS_DEV ? DEV_BUNDLE_DIR_NAME : BUNDLE_DIR_NAME;
 const publicPath = '/' + dist;
 
 const loaders = [
@@ -24,18 +28,16 @@ const loaders = [
 ];
 
 const config = {
-  context: path.resolve(__dirname, '..'),
-
   entry: IS_DEV
-  ? [
-    'react-hot-loader/patch',
-    'webpack-dev-server/client?http://localhost:' + port,
-    'webpack/hot/only-dev-server',
-    './index.js'
-  ]
-  : [
-    './index.js'
-  ],
+    ? [
+      'react-hot-loader/patch',
+      'webpack-dev-server/client?http://' + host + ':' + port,
+      'webpack/hot/only-dev-server',
+      entryPoiny
+    ]
+    : [
+      entryPoiny
+    ],
 
   output: {
     filename: 'bundle.js',
@@ -55,7 +57,7 @@ const config = {
     new webpack.NamedModulesPlugin(),
   ]
   : [
-    new CleanWebpackPlugin('build', { dry: false, root: path.join(__dirname, '..') }),
+    new CleanWebpackPlugin(PROD_BUNDLE_DIR_NAME, { dry: false, root: path.join(__dirname, '..') }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
     }),
@@ -94,11 +96,11 @@ const devServer = {
   port,
   publicPath,
   proxy: {
-    "/bundle": {
-      target: "http://localhost:3000",
-      pathRewrite: { "^/bundle/": "/dev/" },
+    ['/' + PROD_BUNDLE_DIR_NAME]: {
+      target: 'http://'+ host + ':' + port,
+      pathRewrite: { ['^/' + PROD_BUNDLE_DIR_NAME + '/']: '/' + DEV_BUNDLE_DIR_NAME + '/' },
       bypass: function (req, res, proxyOptions) {
-        if (req.url === '/dev/bundle.css') {
+        if (req.url === '/' + DEV_BUNDLE_DIR_NAME + '/bundle.css') {
           return res.sendStatus(200);
         }
       }
