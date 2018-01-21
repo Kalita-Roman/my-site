@@ -95,6 +95,7 @@ const devServer = {
   hot: true,
   port,
   publicPath,
+  historyApiFallback: true,
   proxy: {
     ['/' + PROD_BUNDLE_DIR_NAME]: {
       target: 'http://'+ host + ':' + port,
