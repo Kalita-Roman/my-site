@@ -1,0 +1,23 @@
+.user-card {
+  width: 300px;
+  background-color: #bbb;
+  border-radius: 10px;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+
+  &-photo {
+    img {
+      border-radius: 5px;
+    }
+    margin-right: 10px;
+  }
+
+  &-controls-button {
+    background-color: #955;
+    border-style: none;
+    .acive {
+      background-color: #595;
+    }
+  }
+}

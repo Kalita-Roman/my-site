@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const port = 3000;
+const port = 80;
 const host = 'localhost';
 const entryPoiny = './index.js';
 const PROD_BUNDLE_DIR_NAME = 'bundle';
@@ -55,11 +55,17 @@ const config = {
   ? [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+      IS_DEV: JSON.stringify(IS_DEV),
+      IS_PROD: JSON.stringify(IS_PROD)
+    }),
   ]
   : [
     new CleanWebpackPlugin(PROD_BUNDLE_DIR_NAME, { dry: false, root: path.join(__dirname, '..') }),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+      IS_DEV: JSON.stringify(IS_DEV)
     }),
     new ExtractTextPlugin('bundle.css'),
     new webpack.NamedModulesPlugin(),

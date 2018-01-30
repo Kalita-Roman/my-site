@@ -1,8 +1,22 @@
 import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import waitingConnect from '../waitingConnect';
+import { fetchUsers, updateUser } from '../../actions/users';
 
-export default class Admin extends PureComponent {
+import UserCard from '../UserCard';
+
+class Admin extends PureComponent {
+  componentWillMount() {
+    this.props.fetchUsers();
+  }
+
+  onSwitch = (...args) => {
+    this.props.updateUser(...args);
+  }
+
   render() {
+    const { users } = this.props;
     return (<div>
       <div>
         <Link to="/">Back</Link>
@@ -14,10 +28,35 @@ export default class Admin extends PureComponent {
           Add
         </div>
         <div className="admin-users-add">
-          users
+          {users && <ul>
+            {users.map(user => (
+              <li key={user.uid}>
+                <UserCard user={user} onSwitch={this.onSwitch}/>
+              </li>
+            ))}
+          </ul>
+          }
         </div>
       </div>
     </div>
     );
   }
 };
+
+const mapStateToProps = (state) => {
+  return {
+    users: state.users
+  }
+}
+
+const mapActionsToProps = {
+  fetchUsers,
+  updateUser
+}
+
+const checkState = ({ initialize }) => {
+  const { permissions, session } = initialize;
+  return { allow: !!(permissions && session) };
+}
+
+export default waitingConnect(checkState)(mapStateToProps, mapActionsToProps)(Admin);

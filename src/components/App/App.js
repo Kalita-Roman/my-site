@@ -6,6 +6,7 @@ import {
   Route
 } from 'react-router-dom';
 import Admin from '../Admin';
+import Main from '../Main';
 import { initialize } from '../../actions/initializeAction.js';
 
 import './App.scss';
@@ -16,17 +17,17 @@ class App extends PureComponent {
   }
 
   render() {
-
+    const { permissions } = this.props;
     return (
       <div className="app">
         <Router>
           <div>
             <div>
-              <Link to="/admin">Admin</Link>
+              {permissions && permissions.isAdmin && <Link to="/admin">Admin</Link>}
             </div>
             <div>
-              
-              <Route path="/admin" component={() => (<Admin />)} />
+              <Route exact path="/" component={Main} />
+              <Route path="/admin" component={Admin} />
             </div>
           </div>
         </Router>
@@ -35,12 +36,14 @@ class App extends PureComponent {
   }
 };
 
-const mapStateToProps = () => {
-
+const mapStateToProps = (state) => {
+  return {
+    permissions: state.initialize.permissions
+  }
 }
 
 const mapActionsToProps = {
   initialize
 }
 
-export default connect(null, mapActionsToProps)(App);
+export default connect(mapStateToProps, mapActionsToProps)(App);
