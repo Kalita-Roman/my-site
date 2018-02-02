@@ -5,6 +5,7 @@
     "stage-0"
   ],
   "plugins": [
+    "module-resolver",
     "transform-runtime",
     "react-hot-loader/babel"
   ]

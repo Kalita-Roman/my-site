@@ -16,7 +16,7 @@
   &-controls-button {
     background-color: #955;
     border-style: none;
-    .acive {
+    &.active {
       background-color: #595;
     }
   }
