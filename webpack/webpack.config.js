@@ -10,7 +10,7 @@ const PROD_BUNDLE_DIR_NAME = 'bundle';
 const DEV_BUNDLE_DIR_NAME = 'dev';
 const IS_DEV = process.env.NODE_ENV === 'development';
 const IS_PROD = !IS_DEV;
-const dist = IS_DEV ? DEV_BUNDLE_DIR_NAME : BUNDLE_DIR_NAME;
+const dist = IS_DEV ? DEV_BUNDLE_DIR_NAME : PROD_BUNDLE_DIR_NAME;
 const publicPath = '/' + dist;
 
 const loaders = [
