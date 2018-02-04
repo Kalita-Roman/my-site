@@ -11,7 +11,6 @@ function authHeaders() {
         'app-access-expire': sessionData.expire,
         'app-access-secret': sessionData.secret,
         'app-access-sig': sessionData.sig,
-        'Referrer-Policy': 'no-referrer',
     };
 }
 
