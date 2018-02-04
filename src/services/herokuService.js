@@ -1,6 +1,8 @@
 import sessionData from '../services/sessionService';
 
-const SERVER_URL = 'http://localhost:8080';
+const SERVER_URL = IS_DEV
+    ? 'https://localhost:8080'
+    : 'https://unionapp.herokuapp.com';
 
 function authHeaders() {
     return {
@@ -9,7 +11,7 @@ function authHeaders() {
     };
 }
 
-function request(url, oprions = {}, ...rest) {
+function request(url, oprions = {}) {
     const headers = oprions.headers || {};
     oprions.headers = { ...headers, ...authHeaders() };
     return fetch(url, oprions);

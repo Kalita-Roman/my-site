@@ -5,6 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const port = 80;
 const host = 'localhost';
+const location = 'http://' + host + ':' + port;
 const entryPoiny = './index.js';
 const PROD_BUNDLE_DIR_NAME = 'bundle';
 const DEV_BUNDLE_DIR_NAME = 'dev';
@@ -31,7 +32,7 @@ const config = {
     entry: IS_DEV
         ? [
             'react-hot-loader/patch',
-            'webpack-dev-server/client?http://' + host + ':' + port,
+            'webpack-dev-server/client?' + location,
             'webpack/hot/only-dev-server',
             entryPoiny,
         ]
@@ -58,22 +59,22 @@ const config = {
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
                 IS_DEV: JSON.stringify(IS_DEV),
-                IS_PROD: JSON.stringify(IS_PROD)
+                IS_PROD: JSON.stringify(IS_PROD),
             }),
         ]
         : [
             new CleanWebpackPlugin(PROD_BUNDLE_DIR_NAME, { dry: false, root: path.join(__dirname, '..') }),
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
-                IS_DEV: JSON.stringify(IS_DEV)
+                IS_DEV: JSON.stringify(IS_DEV),
             }),
             new ExtractTextPlugin('bundle.css'),
             new webpack.NamedModulesPlugin(),
             new webpack.optimize.UglifyJsPlugin({
                 minimize: true,
                 compress: {
-                    warnings: false
-                }
+                    warnings: false,
+                },
             }),
         ],
 
@@ -104,13 +105,13 @@ const devServer = {
     historyApiFallback: true,
     proxy: {
         ['/' + PROD_BUNDLE_DIR_NAME]: {
-            target: 'http://' + host + ':' + port,
+            target: location,
             pathRewrite: { ['^/' + PROD_BUNDLE_DIR_NAME + '/']: '/' + DEV_BUNDLE_DIR_NAME + '/' },
-            bypass: function (req, res, proxyOptions) {
+            bypass: (req, res) => {
                 if (req.url === '/' + DEV_BUNDLE_DIR_NAME + '/bundle.css') {
                     return res.sendStatus(200);
                 }
-            }
+            },
         },
     },
 };
