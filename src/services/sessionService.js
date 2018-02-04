@@ -1,8 +1,12 @@
 const session = {};
 
-export function init({ userId, token }) {
-  session.userId = userId;
-  session.token = token;
-};
+export function init({ mid, expire, sid, secret, sig }) {
+    session.userId = mid;
+    session.expire = expire;
+    session.token = sid;
+    session.secret = secret;
+    session.sig = sig;
+    return session;
+}
 
 export default session;

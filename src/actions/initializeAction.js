@@ -7,18 +7,14 @@ const setSession = createAction('INIT');
 const setPermissions = createAction('PERMISSIONS');
 
 export const initialize = () => async (dispath) => {
-  const sessionData = await fetchSessionData();
-  dispath(setSession(sessionData));
-  init(sessionData);
-  const permissions = await getPermissions();
-  dispath(setPermissions(permissions));
-}
+    const session = await fetchSessionData();
+    const sessionData = init(session);
+    dispath(setSession(sessionData));
+    const permissions = await getPermissions();
+    dispath(setPermissions(permissions));
+};
 
-async function fetchSessionData () {
-  const session = await vkSessionPromise;
-  const { sid, user } = session.session;
-  return {
-    userId: user.id,
-    token: sid
-  };
+async function fetchSessionData() {
+    const session = await vkSessionPromise;
+    return session.session;
 }

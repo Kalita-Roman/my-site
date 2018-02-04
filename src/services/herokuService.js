@@ -1,13 +1,17 @@
 import sessionData from '../services/sessionService';
 
 const SERVER_URL = IS_DEV
-    ? 'https://localhost:8080'
+    ? 'http://localhost:8080'
     : 'https://unionapp.herokuapp.com';
 
 function authHeaders() {
     return {
         'app-user-id': sessionData.userId,
         'app-access-token': sessionData.token,
+        'app-access-expire': sessionData.expire,
+        'app-access-secret': sessionData.secret,
+        'app-access-sig': sessionData.sig,
+        'Referrer-Policy': 'no-referrer',
     };
 }
 

@@ -32,6 +32,6 @@ const mapActionsToProps = {
 const checkState = ({ initialize }) => {
     const { permissions, session } = initialize;
     return { allow: !!(permissions && session) };
-}
+};
 
 export default waitingConnect(checkState)(mapStateToProps, mapActionsToProps)(Main);

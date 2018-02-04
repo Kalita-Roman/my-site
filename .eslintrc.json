@@ -67,6 +67,7 @@
     },
     "globals": {
       "IS_PROD": true,
-      "IS_DEV": true
+      "IS_DEV": true,
+      "VK": true
     }
   }
