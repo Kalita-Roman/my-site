@@ -26,6 +26,11 @@ function requestJSON(...args) {
         .catch((err) => ({ error: 'error', message: err }));
 }
 
+
+export function go() {
+    return requestJSON(SERVER_URL + '/go');
+}
+
 export function getPermissions() {
     return requestJSON(SERVER_URL + '/permissions');
 }
