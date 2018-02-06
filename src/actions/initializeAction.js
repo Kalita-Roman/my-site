@@ -11,7 +11,7 @@ export const initialize = () => async (dispath) => {
     const sessionData = init(session);
     dispath(setSession(sessionData));
     const goResponce = await go();
-    console.log(goResponce);
+    console.log('go', goResponce);
     const permissions = await getPermissions();
     dispath(setPermissions(permissions));
 };

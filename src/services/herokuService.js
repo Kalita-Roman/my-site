@@ -28,6 +28,7 @@ function requestJSON(...args) {
 
 
 export function go() {
+    console.log('go()');
     return requestJSON(SERVER_URL + '/go');
 }
 
