@@ -67,6 +67,7 @@ const config = {
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
                 IS_DEV: JSON.stringify(IS_DEV),
+                IS_PROD: JSON.stringify(IS_PROD),
             }),
             new ExtractTextPlugin('bundle.css'),
             new webpack.NamedModulesPlugin(),
