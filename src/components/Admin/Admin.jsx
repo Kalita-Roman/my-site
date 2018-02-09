@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+
+import AddUser from '../AddUser';
+
 import waitingConnect from '../waitingConnect';
 import { fetchUsers, updateUser } from '../../actions/users';
 
@@ -24,9 +26,7 @@ class Admin extends PureComponent {
                 <Link to="/admin/games">games</Link>
             </div>
             <div className="admin-users">
-                <div className="admin-users-add">
-                    Add
-                </div>
+                <AddUser />
                 <div className="admin-users-add">
                     {users && <ul>
                         {users.map((user) => (
@@ -41,12 +41,12 @@ class Admin extends PureComponent {
         </div>
         );
     }
-};
+}
 
 const mapStateToProps = (state) => {
     return {
         users: state.users,
-    }
+    };
 };
 
 const mapActionsToProps = {

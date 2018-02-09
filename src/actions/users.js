@@ -2,6 +2,8 @@ import { createAction } from 'redux-actions';
 import {
     getUsers,
     updateUser as requestUpdateUser,
+    addUser as requestAddUser,
+    deleteUser as requestDeleteUser,
 } from '../services/herokuService';
 import { getUser } from '../services/vkService';
 
@@ -31,3 +33,12 @@ export const updateUser = (data) => async (dispatch) => {
     dispatch(setUserData(user));
 };
 
+export const addUser = (userId) => async (dispatch) => {
+    const result = await requestAddUser(userId);
+    console.log(result);
+};
+
+export const deleteUser = (userId) => async (dispatch) => {
+    const result = await requestDeleteUser(userId);
+    console.log(result);
+};
