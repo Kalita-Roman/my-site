@@ -1,7 +1,7 @@
-const path = require('path');
-const webpack = require('webpack');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+import webpack from 'webpack';
+import path from 'path';
+import CleanWebpackPlugin from 'clean-webpack-plugin';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 const port = 80;
 const host = 'localhost';
@@ -28,6 +28,31 @@ const loaders = [
     },
 ];
 
+const commonPlugins = [
+    new webpack.DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+        IS_DEV: JSON.stringify(IS_DEV),
+        IS_PROD: JSON.stringify(IS_PROD),
+    }),
+];
+
+const envPlugins = IS_DEV
+    ? [
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NamedModulesPlugin(),
+    ]
+    : [
+        new CleanWebpackPlugin(PROD_BUNDLE_DIR_NAME, { dry: false, root: path.join(__dirname, '..') }),
+        new ExtractTextPlugin('bundle.css'),
+        new webpack.NamedModulesPlugin(),
+        new webpack.optimize.UglifyJsPlugin({
+            minimize: true,
+            compress: {
+                warnings: false,
+            },
+        }),
+    ];
+
 const config = {
     entry: IS_DEV
         ? [
@@ -52,32 +77,7 @@ const config = {
 
     devtool: IS_DEV ? 'inline-source-map' : false,
 
-    plugins: IS_DEV
-        ? [
-            new webpack.HotModuleReplacementPlugin(),
-            new webpack.NamedModulesPlugin(),
-            new webpack.DefinePlugin({
-                'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
-                IS_DEV: JSON.stringify(IS_DEV),
-                IS_PROD: JSON.stringify(IS_PROD),
-            }),
-        ]
-        : [
-            new CleanWebpackPlugin(PROD_BUNDLE_DIR_NAME, { dry: false, root: path.join(__dirname, '..') }),
-            new webpack.DefinePlugin({
-                'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
-                IS_DEV: JSON.stringify(IS_DEV),
-                IS_PROD: JSON.stringify(IS_PROD),
-            }),
-            new ExtractTextPlugin('bundle.css'),
-            new webpack.NamedModulesPlugin(),
-            new webpack.optimize.UglifyJsPlugin({
-                minimize: true,
-                compress: {
-                    warnings: false,
-                },
-            }),
-        ],
+    plugins: [...commonPlugins, ...envPlugins],
 
     module: {
         rules: [

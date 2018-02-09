@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "start": "SET NODE_ENV=development&&webpack-dev-server --config webpack/webpack.config.babel.js",
-    "build": "SET NODE_ENV=production&&webpack --config webpack/webpack.config.babel.js"
+    "start": "SET NODE_ENV=development&&webpack-dev-server --config ./webpack",
+    "build": "SET NODE_ENV=production&&webpack --config ./webpack"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
