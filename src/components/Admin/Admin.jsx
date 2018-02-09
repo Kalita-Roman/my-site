@@ -4,7 +4,11 @@ import { Link } from 'react-router-dom';
 import AddUser from '../AddUser';
 
 import waitingConnect from '../waitingConnect';
-import { fetchUsers, updateUser } from '../../actions/users';
+import {
+    fetchUsers,
+    updateUser,
+    deleteUser,
+} from '../../actions/users';
 
 import UserCard from '../UserCard';
 
@@ -15,6 +19,10 @@ class Admin extends PureComponent {
 
     onSwitch = (...args) => {
         this.props.updateUser(...args);
+    }
+
+    onDelete = (...args) => {
+        this.props.deleteUser(...args);
     }
 
     render() {
@@ -31,7 +39,11 @@ class Admin extends PureComponent {
                     {users && <ul>
                         {users.map((user) => (
                             <li key={user.id}>
-                                <UserCard user={user} onSwitch={this.onSwitch} />
+                                <UserCard
+                                    user={user}
+                                    onSwitch={this.onSwitch}
+                                    onDelete={this.onDelete}
+                                />
                             </li>
                         ))}
                     </ul>
@@ -52,6 +64,7 @@ const mapStateToProps = (state) => {
 const mapActionsToProps = {
     fetchUsers,
     updateUser,
+    deleteUser,
 };
 
 const checkState = ({ initialize }) => {

@@ -32,5 +32,7 @@ export function updateUser(user) {
 }
 
 export function deleteUser(user) {
-    return requestJSON(buildUserUrl(user));
+    return requestJSON(buildUserUrl(user), {
+        method: 'DELETE',
+    });
 }

@@ -7,6 +7,11 @@ export default class UserCard extends PureComponent {
         onSwitch(user);
     }
 
+    onDelete = () => {
+        const { onDelete, user } = this.props;
+        onDelete(user);
+    }
+
     render() {
         const { user } = this.props;
         const { data, vkData } = user;
@@ -46,8 +51,14 @@ export default class UserCard extends PureComponent {
                     >
                         switch
                     </button>
+                    <button
+                        className={buttonClassName}
+                        onClick={this.onDelete}
+                    >
+                        delete
+                    </button>
                 </div>
             </div>
         );
     }
-};
+}
