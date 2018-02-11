@@ -2,6 +2,7 @@ import webpack from 'webpack';
 import path from 'path';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import testHeaders from './testUsers';
 
 const port = 80;
 const host = 'localhost';
@@ -33,6 +34,7 @@ const commonPlugins = [
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
         IS_DEV: JSON.stringify(IS_DEV),
         IS_PROD: JSON.stringify(IS_PROD),
+        TEST_HEADERS: JSON.stringify(testHeaders),
     }),
 ];
 

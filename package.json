@@ -47,6 +47,7 @@
     "webpack-hot-middleware": "^2.21.0"
   },
   "dependencies": {
+    "jsonfile": "^4.0.0",
     "react-router-dom": "^4.2.2"
   }
 }

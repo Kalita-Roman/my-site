@@ -5,13 +5,19 @@ const SERVER_URL = IS_DEV
     : 'https://unionapp.herokuapp.com';
 
 function authHeaders() {
-    return {
+    const headers = {
         'app-user-id': sessionData.userId,
         'app-access-token': sessionData.token,
         'app-access-expire': sessionData.expire,
         'app-access-secret': sessionData.secret,
         'app-access-sig': sessionData.sig,
     };
+
+    if (IS_DEV && TEST_HEADERS) {
+        return { ...headers, ...TEST_HEADERS };
+    }
+
+    return headers;
 }
 
 export function request(url, oprions = {}) {
