@@ -1,8 +1,14 @@
 const APIID = 5675624;
 
-export default new Promise((resolve, reject) => {
+export default new Promise((resolve) => {
     VK.init({ apiId: APIID });
-    VK.Auth.login((loginResponce) => {
-        resolve(loginResponce);
-    }, 7);
+    VK.Auth.getLoginStatus((response) => {
+        if (response) {
+            resolve(response);
+        } else {
+            VK.Auth.login((loginResponce) => {
+                resolve(loginResponce);
+            }, 7);
+        }
+    });
 });
