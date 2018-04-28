@@ -1,4 +1,4 @@
-import vkSessionPromise from '../utils/authvk.js';
+import vkSessionPromise from '../utils/authvk';
 import { createAction } from 'redux-actions';
 import { init } from '../services/sessionService';
 import { getPermissions } from '../services/herokuService';
@@ -15,6 +15,6 @@ export const initialize = () => async (dispath) => {
 };
 
 async function fetchSessionData() {
-    const session = await vkSessionPromise;
+    const session = await vkSessionPromise();
     return session.session;
 }

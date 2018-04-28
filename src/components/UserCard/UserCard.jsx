@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react';
 import classNames from 'classnames';
+import Trigger from '../Trigger';
 
 export default class UserCard extends PureComponent {
-    onSwitch = () => {
-        const { onSwitch, user } = this.props;
-        onSwitch(user);
+    onSwitch = (active) => {
+        const { onSwitch, user: { id } } = this.props;
+        onSwitch({ id, active });
     }
 
     onDelete = () => {
@@ -45,12 +46,9 @@ export default class UserCard extends PureComponent {
                     </div>
                 </div>
                 <div className="user-card-controls">
-                    <button
-                        className={buttonClassName}
-                        onClick={this.onSwitch}
-                    >
-                        switch
-                    </button>
+                    <div>
+                        <Trigger value={active} onClick={this.onSwitch} />
+                    </div>
                     <button
                         className={buttonClassName}
                         onClick={this.onDelete}

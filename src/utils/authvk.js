@@ -1,6 +1,8 @@
 const APIID = 5675624;
 
-export default new Promise((resolve) => {
+const vkSessionPromise = () => new Promise(Init);
+
+function Init(resolve) {
     VK.init({ apiId: APIID });
     VK.Auth.getLoginStatus((response) => {
         if (response) {
@@ -11,4 +13,6 @@ export default new Promise((resolve) => {
             }, 7);
         }
     });
-});
+}
+
+export default vkSessionPromise;

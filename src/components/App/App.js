@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {
     BrowserRouter as Router,
     Link,
-    Route
+    Route,
 } from 'react-router-dom';
 import Admin from '../Admin';
 import Main from '../Main';

@@ -33,12 +33,10 @@ export const updateUser = (data) => async (dispatch) => {
     dispatch(setUserData(user));
 };
 
-export const addUser = (userId) => async (dispatch) => {
-    const result = await requestAddUser(userId);
-    console.log(result);
+export const addUser = (userId) => async () => {
+    return await requestAddUser(userId);
 };
 
-export const deleteUser = (userId) => async (dispatch) => {
-    const result = await requestDeleteUser(userId);
-    console.log(result);
+export const deleteUser = (userId) => async () => {
+    return await requestDeleteUser(userId);
 };

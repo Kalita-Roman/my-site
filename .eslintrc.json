@@ -25,7 +25,6 @@
       }
     },
     "rules": {
-      "react/prop-types": 1,
       "react/require-default-props": 0,
       "react/forbid-prop-types": 0,
       "react/jsx-curly-brace-presence": 2,
@@ -35,6 +34,8 @@
       "react/prefer-stateless-function": 0,
       "react/no-unused-prop-types": 1,
       "react/jsx-closing-tag-location": 0,
+      "react/prop-types": 0,
+      "arrow-body-style": 0,
       "jsx-a11y/anchor-is-valid": 0,
       "jsx-a11y/alt-text": 0,
       "semi": [ 2, "always" ],
@@ -51,6 +52,7 @@
       "no-unused-vars": 1,
       "no-use-before-define": 0,
       "no-param-reassign": 0,
+      "no-return-await": 0,
       "no-shadow": 0,
       "object-curly-newline": 0,
       "camelcase": 0,
@@ -58,6 +60,7 @@
       "global-require": 0,
       "dot-notation": 0,
       "no-unused-expressions": 0,
+      "spaced-comment": 0,
       "no-mixed-operators": 0,
       "import/no-extraneous-dependencies": 0,
       "no-underscore-dangle": 0,

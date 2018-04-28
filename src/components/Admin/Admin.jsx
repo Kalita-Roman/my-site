@@ -17,8 +17,8 @@ class Admin extends PureComponent {
         this.props.fetchUsers();
     }
 
-    onSwitch = (...args) => {
-        this.props.updateUser(...args);
+    onSwitch = (value) => {
+        this.props.updateUser(value);
     }
 
     onDelete = (...args) => {
@@ -49,6 +49,15 @@ class Admin extends PureComponent {
                     </ul>
                     }
                 </div>
+                {/* <p>
+                    <ul>
+                        <li>11671427</li>
+                        <li>14969875</li>
+                        <li>45819093</li>
+                        <li>45819093</li>
+                        <li className="w">13264174</li>
+                    </ul>
+                </p> */}
             </div>
         </div>
         );

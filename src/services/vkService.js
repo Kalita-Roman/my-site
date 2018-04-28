@@ -1,10 +1,8 @@
-export const getUser = (id) => {
-    return new Promise(function (resolve) {
-        window.VK.api(
-            'users.get',
-            { user_ids: id, fields: 'photo_50' },
-            function (data) {
-                resolve(data.response[0])
-            });
-    })
+const defaultParams = { version: 5.74 };
+
+function apiRequest(method, params) {
+    const paramsToRequest = { ...defaultParams, ...params };
+    return new Promise((resolve) => window.VK.api(method, paramsToRequest, (data) => resolve(data.response[0])));
 }
+
+export const getUser = (user_ids) => apiRequest('users.get', { user_ids, fields: 'photo_50' });

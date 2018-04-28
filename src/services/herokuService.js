@@ -10,24 +10,20 @@ export function getUsers() {
 
 function buildUserUrl(user) {
     const id = user.uid || user.id;
-    return '/user/' + id;
+    return '/users/' + id;
 }
 
 export function addUser(id) {
-    return requestJSON('/user/' + id, {
+    return requestJSON('/users/' + id, {
         method: 'PUT',
     });
 }
 
 export function updateUser(user) {
-    const body = {
-        action: 'changeActive',
-        data: !user.data.active,
-    };
     return requestJSON(buildUserUrl(user), {
         method: 'POST',
         headers: { 'Content-type': 'application/json; charset=utf-8' },
-        body: JSON.stringify(body),
+        body: JSON.stringify(user),
     });
 }
 
