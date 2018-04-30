@@ -1,84 +1,37 @@
-import React, { PureComponent } from 'react';
-import { Link } from 'react-router-dom';
-
-import AddUser from '../AddUser';
-
-import waitingConnect from '../waitingConnect';
+import React, { Component } from 'react';
 import {
-    fetchUsers,
-    updateUser,
-    deleteUser,
-} from '../../actions/users';
+    Link,
+    Route,
+} from 'react-router-dom';
+import waitingConnect from '../waitingConnect';
 
-import UserCard from '../UserCard';
+import GamesList from '../GamesList';
+import UsersList from '../UsersList';
 
-class Admin extends PureComponent {
-    componentWillMount() {
-        this.props.fetchUsers();
-    }
 
-    onSwitch = (value) => {
-        this.props.updateUser(value);
-    }
-
-    onDelete = (...args) => {
-        this.props.deleteUser(...args);
-    }
-
+class Admin extends Component {
     render() {
-        const { users } = this.props;
+        const { match } = this.props;
         return (<div>
-            <div>
-                <Link to="/">Back</Link>
-                <Link to="/admin/users">users</Link>
-                <Link to="/admin/games">games</Link>
+            <div className="menu">
+                <Link className="menu-item" to="/">Back</Link>
+                <Link className="menu-item" to="/admin/users">users</Link>
+                <Link className="menu-item" to="/admin/games">games</Link>
             </div>
             <div className="admin-users">
-                <AddUser />
-                <div className="admin-users-add">
-                    {users && <ul>
-                        {users.map((user) => (
-                            <li key={user.id}>
-                                <UserCard
-                                    user={user}
-                                    onSwitch={this.onSwitch}
-                                    onDelete={this.onDelete}
-                                />
-                            </li>
-                        ))}
-                    </ul>
-                    }
+                <div>
+                    <Route path={`${match.url}/users`} component={UsersList} />
+                    <Route path={`${match.url}/games`} component={GamesList} />
                 </div>
-                {/* <p>
-                    <ul>
-                        <li>11671427</li>
-                        <li>14969875</li>
-                        <li>45819093</li>
-                        <li>45819093</li>
-                        <li className="w">13264174</li>
-                    </ul>
-                </p> */}
             </div>
         </div>
         );
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        users: state.users,
-    };
-};
-
-const mapActionsToProps = {
-    fetchUsers,
-    updateUser,
-    deleteUser,
-};
-
 const checkState = ({ initialize }) => {
     const { permissions, session } = initialize;
     return { allow: !!(permissions && session) };
 };
 
-export default waitingConnect(checkState)(mapStateToProps, mapActionsToProps)(Admin);
+export default waitingConnect(checkState)()(Admin);

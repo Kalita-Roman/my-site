@@ -1,3 +1,30 @@
+$PHOTO_SIZE: 100px;
+
+.user-title {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &-image {
+    width: $PHOTO_SIZE; 
+    height: $PHOTO_SIZE;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &-date {
+
+  }
+
+  &-date__info {
+
+  }
+}
+
 .user-title-permition {
   background-color: #955;
   &--active {

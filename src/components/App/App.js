@@ -1,8 +1,7 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
     BrowserRouter as Router,
-    Link,
     Route,
 } from 'react-router-dom';
 import Admin from '../Admin';
@@ -11,24 +10,18 @@ import { initialize } from '../../actions/initializeAction.js';
 
 import './App.scss';
 
-class App extends PureComponent {
+class App extends Component {
     componentWillMount() {
         this.props.initialize();
     }
 
     render() {
-        const { permissions } = this.props;
         return (
             <div className="app">
                 <Router>
-                    <div>
-                        <div>
-                            {permissions && permissions.isAdmin && <Link to="/admin">Admin</Link>}
-                        </div>
-                        <div>
-                            <Route exact path="/" component={Main} />
-                            <Route path="/admin" component={Admin} />
-                        </div>
+                    <div style={{ height: '100%' }}>
+                        <Route exact path="/" component={Main} />
+                        <Route path="/admin/" component={Admin} />
                     </div>
                 </Router>
             </div>

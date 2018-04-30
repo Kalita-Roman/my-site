@@ -20,7 +20,7 @@ export default class UserCard extends PureComponent {
             return null;
         }
         const { active } = data;
-        const { uid, first_name, last_name, photo_50 } = vkData;
+        const { uid, first_name, last_name, photo } = vkData;
         const buttonClassName = classNames(
             'user-card-controls-button', {
                 active,
@@ -30,7 +30,7 @@ export default class UserCard extends PureComponent {
         return (
             <div className="user-card">
                 <div className="user-card-photo">
-                    <img src={photo_50} alt={uid} />
+                    <img src={photo} alt={uid} />
                 </div>
                 <div>
                     <div className="user-card-name-block">

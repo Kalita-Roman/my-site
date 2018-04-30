@@ -8,6 +8,14 @@ export function getUsers() {
     return requestJSON('/users');
 }
 
+export function getGames() {
+    return requestJSON('/games');
+}
+
+export function getCurrentGames() {
+    return requestJSON('/games/current');
+}
+
 function buildUserUrl(user) {
     const id = user.uid || user.id;
     return '/users/' + id;

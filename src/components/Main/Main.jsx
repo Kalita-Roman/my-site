@@ -1,20 +1,24 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
-import { getUser } from '../../services/vkService';
 import waitingConnect from '../waitingConnect';
 import { fetchCurrentUser } from '../../actions/users';
 import UserTitle from '../UserTitle';
+import Game from '../Game';
 
 class Main extends PureComponent {
     componentWillMount() {
         const { session, fetchCurrentUser } = this.props;
-        this.props.fetchCurrentUser(session.userId);
+        fetchCurrentUser(session.userId);
     }
 
     render() {
         return (
             <div className="main">
-                <UserTitle />
+                <div className="right-board">
+                    <UserTitle />
+                </div>
+                <div className="content">
+                    <Game />
+                </div>
             </div>
         );
     }
