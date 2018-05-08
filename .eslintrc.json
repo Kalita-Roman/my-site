@@ -42,6 +42,7 @@
       "prefer-template": 0,
       "consistent-return": 0,
       "no-new": 0,
+      "arrow-parens": 0,
       "prefer-spread": 0,
       "import/prefer-default-export": 0,
       "import/extensions": "off",
@@ -66,7 +67,6 @@
       "no-mixed-operators": 0,
       "import/no-extraneous-dependencies": 0,
       "no-underscore-dangle": 0,
-      "arrow-parens": [ 2, "always"],
       "prefer-destructuring": 0,
       "linebreak-style": [0, "unix"],
       "indent": [ 1, 4, { "SwitchCase": 1 } ]

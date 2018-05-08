@@ -1,36 +1,26 @@
 import { connect } from 'react-redux';
 import './Game.scss';
 
-import Content from './Game.jsx';
+import Game from './Game.jsx';
 
-import { fetchCurrentGames } from '../../actions/games';
+import {
+    fetchCurrentGames,
+    fetchGameById,
+} from '../../actions/games';
+import { selectedGame } from '../../selectors/games';
 
-const mapStateToProps = () => ({
-    game: {
-        name: 'МБ',
-        days: [
-            {
-                day: 'Пн',
-                players: ['1', '2'],
-            },
-            {
-                day: 'Вт',
-                players: ['1', '2', '3'],
-            },
-            {
-                day: 'Ср',
-                players: ['2', '3', '4', '5'],
-            },
-            {
-                day: 'Чт',
-                players: ['3', '4'],
-            },
-        ],
-    },
+const fetchGame = () => async (dispatch, getStore) => {
+    await fetchCurrentGames()(dispatch);
+    const { id } = getStore().games.current[0];
+    dispatch(fetchGameById(id));
+};
+
+const mapStateToProps = (store) => ({
+    game: selectedGame(store),
 });
 
 const mapActionsToProps = {
-    fetchCurrentGames,
+    fetchGame,
 };
 
-export default connect(mapStateToProps, mapActionsToProps)(Content);
+export default connect(mapStateToProps, mapActionsToProps)(Game);

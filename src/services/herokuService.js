@@ -16,6 +16,10 @@ export function getCurrentGames() {
     return requestJSON('/games/current');
 }
 
+export function getGame(id) {
+    return requestJSON(`/games/${id}`);
+}
+
 function buildUserUrl(user) {
     const id = user.uid || user.id;
     return '/users/' + id;

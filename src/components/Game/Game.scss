@@ -1,2 +1,17 @@
-.content {
+.game {
+    &-header {
+        height: 50px;
+        background-color: aqua;
+    }
+
+    &-days {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &-day {
+        background-color: beige;
+        margin: 0 10px;
+        flex: 1 0 auto;
+    }
 }

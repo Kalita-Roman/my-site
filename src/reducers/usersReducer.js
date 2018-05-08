@@ -12,6 +12,9 @@ export default function usersReducer(state = [], action) {
         case 'USERS.SET': {
             return payload.map((user) => ({ id: user.id, data: user }));
         }
+        case 'USER.SET': {
+            return [...state, { id: payload.uid, vkData: payload }];
+        }
         case 'USER.SET.DATA': {
             const { id } = payload;
             return updateUser(

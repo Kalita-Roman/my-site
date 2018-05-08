@@ -8,10 +8,13 @@ import {
 import { getUser } from '../services/vkService';
 
 const setUsers = createAction('USERS.SET');
+const setUser = createAction('USER.SET');
 const setUserData = createAction('USER.SET.DATA');
 const setUserVkData = createAction('USER.SET.VKDATA');
 const setUserPending = createAction('USER.SET.PENDING');
 const setCurrentUser = createAction('CURRENT_USER.SET');
+
+const pendingIds = new Set();
 
 export const fetchUsers = () => async (dispatch) => {
     const users = await getUsers();
@@ -21,6 +24,26 @@ export const fetchUsers = () => async (dispatch) => {
             .then((user) => dispatch(setUserVkData(user)));
     });
 };
+
+export const fetchUserById = (id) => async (dispatch, getState) => {
+    const state = getState();
+    const user = state.users.find(x => x.id === id);
+    if (user) {
+        return;
+    }
+    if (pendingIds.has(id)) {
+        return;
+    }
+    pendingIds.add(id);
+    try {
+        const userResponse = await getUser(id);
+        pendingIds.delete(id);
+        dispatch(setUser(userResponse));
+    } catch (e) {
+        console.log(e);
+    }
+};
+
 
 export const fetchCurrentUser = (id) => async (dispatch) => {
     const userResponse = await getUser(id);
