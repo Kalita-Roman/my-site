@@ -7,7 +7,18 @@ export const getUser = async (user_ids, props) => {
     return user;
 };
 
-function apiRequest(method, params) {
+async function apiRequest(method, params) {
     const paramsToRequest = { ...defaultParams, ...params };
-    return new Promise((resolve) => window.VK.api(method, paramsToRequest, (data) => resolve(data.response[0])));
+    const res = await vkApi(method, paramsToRequest);
+    return res.response[0];
+}
+
+function vkApi(method, params) {
+    return new Promise((resolve, reject) => {
+        try {
+            window.VK.api(method, params, resolve);
+        } catch (error) {
+            reject(error);
+        }
+    });
 }
