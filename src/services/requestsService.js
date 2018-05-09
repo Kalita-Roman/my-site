@@ -13,7 +13,16 @@ function authHeaders() {
         'app-access-sig': sessionData.sig,
     };
 
-    if (IS_DEV && TEST_HEADERS) {
+    if (!IS_DEV) {
+        return headers;
+    }
+    const testUserId = localStorage.getItem('testUserId');
+
+    if (testUserId) {
+        return { ...headers, 'test-id': testUserId };
+    }
+
+    if (TEST_HEADERS) {
         return { ...headers, ...TEST_HEADERS };
     }
 
