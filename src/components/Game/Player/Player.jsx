@@ -2,8 +2,8 @@ import React, { PureComponent } from 'react';
 
 export default class Player extends PureComponent {
     componentWillMount() {
-        const { id, fetchUserById } = this.props;
-        fetchUserById(id);
+        const { vote: { player }, fetchUserById } = this.props;
+        fetchUserById(player);
     }
 
     render() {

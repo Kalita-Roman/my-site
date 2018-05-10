@@ -1,22 +1,39 @@
 import React, { PureComponent } from 'react';
 
 import Player from './Player';
+import Trigger from '../Trigger';
+
+import {
+    addVote,
+    removeVote,
+} from '../../services/herokuService';
 
 export default class GameDay extends PureComponent {
+    handleHangeClick = (value) => {
+        const { day: { id: day, game, voteOfUser } } = this.props;
+        if (value) {
+            addVote({ day, game });
+        }
+        if (voteOfUser) {
+            removeVote(voteOfUser.id);
+        }
+    }
+
     render() {
         const { day } = this.props;
-        const { players, date } = day;
+        const { votes, voteOfUser, date } = day;
+
         return (
             <div className="game-day">
                 <div>
                     {date}
                 </div>
                 <div>
-                    button
+                    <Trigger onClick={this.handleHangeClick} value={voteOfUser} />
                 </div>
                 <div>
                     {
-                        players.map((id) => <Player key={id} id={id} />)
+                        votes.map((vote) => <Player key={vote.id} vote={vote} />)
                     }
                 </div>
             </div>

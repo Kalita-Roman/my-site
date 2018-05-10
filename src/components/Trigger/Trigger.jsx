@@ -31,6 +31,10 @@ export default class Trigger extends PureComponent {
     }
 }
 
+Trigger.defaultProps = {
+    value: false,
+};
+
 function getStatus(value, pending) {
     if (pending) {
         return 'wait';

@@ -44,3 +44,19 @@ export function deleteUser(user) {
         method: 'DELETE',
     });
 }
+
+export function addVote(value) {
+    return requestJSON('/vote', {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json; charset=utf-8' },
+        body: JSON.stringify(value),
+    });
+}
+
+export function removeVote(id) {
+    return requestJSON('/vote', {
+        method: 'DELETE',
+        headers: { 'Content-type': 'application/json; charset=utf-8' },
+        body: JSON.stringify({ id }),
+    });
+}

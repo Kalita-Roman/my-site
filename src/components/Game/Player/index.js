@@ -4,7 +4,7 @@ import Player from './Player.jsx';
 
 import { fetchUserById } from '../../../actions/users';
 
-const mapStateToProps = (store, { id }) => ({
+const mapStateToProps = (store, { vote: { player: id } }) => ({
     user: store.users.find(x => x.id.toString() === id),
 });
 
