@@ -46,6 +46,7 @@
       "prefer-spread": 0,
       "import/prefer-default-export": 0,
       "import/extensions": "off",
+      "no-useless-escape": 0,
       "import/no-unresolved": 2,
       "import/first": 0,
       "import/no-mutable-exports": 0,

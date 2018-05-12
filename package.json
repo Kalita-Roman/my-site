@@ -1,9 +1,11 @@
 {
   "scripts": {
     "start": "SET NODE_ENV=development&&webpack-dev-server --config ./webpack",
-    "build": "SET NODE_ENV=production&&webpack --config ./webpack"
+    "build": "SET NODE_ENV=production&&webpack --config ./webpack",
+    "storybook": "start-storybook -p 9001 -c .storybook"
   },
   "devDependencies": {
+    "@storybook/react": "^3.4.3",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.1",
     "babel-loader": "^7.1.2",
