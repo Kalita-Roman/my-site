@@ -1,18 +1,19 @@
 const APIID = 5675624;
 
-const vkSessionPromise = () => new Promise(Init);
+const vkSessionPromise = () => new Promise(init);
 
-function Init(resolve) {
+async function init(resolve) {
     VK.init({ apiId: APIID });
-    VK.Auth.getLoginStatus((response) => {
-        if (response) {
-            resolve(response);
-        } else {
-            VK.Auth.login((loginResponce) => {
-                resolve(loginResponce);
-            }, 7);
-        }
-    });
+    const { session } = await getLoginStatusVk();
+    if (session) {
+        resolve(session);
+    } else {
+        VK.Widgets.Auth('vk_auth', { authUrl: '/' });
+    }
+}
+
+function getLoginStatusVk() {
+    return new Promise(VK.Auth.getLoginStatus);
 }
 
 export default vkSessionPromise;

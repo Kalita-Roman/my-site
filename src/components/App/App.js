@@ -20,6 +20,7 @@ class App extends Component {
             <div className="app">
                 <Router>
                     <div style={{ height: '100%' }}>
+                        <div id="vk_auth" />
                         <Route exact path="/" component={Main} />
                         <Route path="/admin/" component={Admin} />
                     </div>

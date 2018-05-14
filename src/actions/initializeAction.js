@@ -7,14 +7,9 @@ const setSession = createAction('INIT');
 const setPermissions = createAction('PERMISSIONS');
 
 export const initialize = () => async (dispath) => {
-    const session = await fetchSessionData();
+    const session = await vkSessionPromise();
     const sessionData = init(session);
     dispath(setSession(sessionData));
     const permissions = await getPermissions();
     dispath(setPermissions(permissions));
 };
-
-async function fetchSessionData() {
-    const session = await vkSessionPromise();
-    return session.session;
-}
